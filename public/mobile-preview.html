@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Preview - Vayosa</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 2rem;
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-frame {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            background: #111;
+            border-radius: 50px;
+            padding: 15px;
+            box-shadow:
+                0 0 0 11px #2a2a2a,
+                0 0 0 13px #333,
+                0 20px 40px rgba(0, 0, 0, 0.4);
+            margin: 2rem;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #111111;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: #111;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            z-index: 100;
+        }
+
+        .phone-button {
+            position: absolute;
+            right: -15px;
+            top: 120px;
+            width: 5px;
+            height: 60px;
+            background: #2a2a2a;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .phone-button.left {
+            left: -15px;
+            right: auto;
+            border-radius: 5px 0 0 5px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-title {
+            color: #FFE800;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .preview-label {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .preview-container {
+                gap: 2rem;
+            }
+
+            .phone-frame {
+                transform: scale(0.8);
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preview-container">
+        <div class="preview-title">VAYOSA Mobile Preview</div>
+
+        <div class="preview-section">
+            <div class="preview-label">Home Page</div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-button"></div>
+                <div class="phone-button left"></div>
+                <div class="phone-screen">
+                    <iframe src="index.html" title="Home Page Preview"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-label">About Page</div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-button"></div>
+                <div class="phone-button left"></div>
+                <div class="phone-screen">
+                    <iframe src="about.html" title="About Page Preview"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

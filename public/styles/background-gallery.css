@@ -1,0 +1,194 @@
+/* Background Gallery */
+.background-gallery {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    filter: grayscale(100%) brightness(0.3) contrast(1.2);
+    transition: opacity 1s ease-in-out, transform 0.5s ease-out;
+    transform: scale(1.1);
+}
+
+.gallery-image.active {
+    opacity: 0.6;
+    transform: scale(1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.7));
+    z-index: 1;
+}
+
+/* Parallax effect */
+.gallery-image.parallax {
+    transform: scale(1.1);
+    transition: transform 0.5s ease-out;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+    .gallery-image {
+        transform: scale(1.05);
+    }
+
+    .gallery-image.active {
+        transform: scale(1);
+    }
+
+    /* Reduce gradient opacity on mobile for better readability */
+    .background-gallery::before {
+        background: linear-gradient(45deg,
+                rgba(17, 17, 17, 0.85),
+                rgba(17, 17, 17, 0.75));
+    }
+}
+
+/* Portrait orientation specific adjustments */
+@media (max-width: 768px) and (orientation: portrait) {
+    .gallery-image {
+        /* Adjust object-position for portrait mode */
+        object-position: center center;
+    }
+}
+
+/* Landscape orientation specific adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .gallery-image {
+        /* Ensure full width coverage in landscape */
+        width: 100vw;
+        /* Adjust object-position for landscape mode */
+        object-position: center 20%;
+    }
+}
+
+/* High-DPI screens (retina displays) */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .gallery-image {
+        image-rendering: auto;
+        /* Optimize memory usage for high DPI displays */
+        contain: strict;
+    }
+}
+
+.gallery-image.fade-out {
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced overlay gradient with reduced animation load */
+.background-gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            rgba(17, 17, 17, 0.75),
+            rgba(17, 17, 17, 0.65));
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: normal;
+    animation: gradientPulse 15s ease-in-out infinite;
+    will-change: opacity;
+}
+
+/* Optimized animations with reduced keyframes */
+@keyframes slowZoom {
+
+    0%,
+    100% {
+        transform: scale(var(--scale-start, 1.05)) translateZ(0);
+    }
+
+    50% {
+        transform: scale(var(--scale-mid, 1.08)) translateZ(0);
+    }
+}
+
+@keyframes pulseContrast {
+
+    0%,
+    100% {
+        filter: grayscale(100%) contrast(1.2) brightness(0.5) saturate(1.1);
+    }
+
+    50% {
+        filter: grayscale(100%) contrast(1.3) brightness(0.6) saturate(1.2);
+    }
+}
+
+@keyframes gradientPulse {
+
+    0%,
+    100% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 0.65;
+    }
+}
+
+/* Loading animation with GPU acceleration */
+.loading-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transform: translateZ(0);
+}
+
+/* Mobile-optimized loading spinner */
+@media (max-width: 768px) {
+    .loading-placeholder::after {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+}
+
+.loading-placeholder::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: #FFE800;
+    animation: loadingSpin 1s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+@keyframes loadingSpin {
+    to {
+        transform: rotate(360deg) translateZ(0);
+    }
+}

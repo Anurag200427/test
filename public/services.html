@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Services | Vayosa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/mobile-nav.css">
+    <link rel="stylesheet" href="styles/background-gallery.css">
+    <style>
+        body {
+            margin: 0;
+            background: #111111;
+            color: #f3f3f3;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .animated-shape {
+            position: absolute;
+            background: #FFE800;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: morphShape 20s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+            background: #fff;
+        }
+
+        .shape3 {
+            width: 300px;
+            height: 300px;
+            top: 200px;
+            left: 100px;
+            animation-delay: -10s;
+            background: #fff;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+        }
+
+        @keyframes morphShape {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-50px, -30px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        .navbar {
+            width: 100%;
+            height: 80px;
+            background: rgba(17, 17, 17, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 3rem;
+            width: 800px;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #FFE800;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item:hover a {
+            color: #FFE800;
+        }
+
+        .nav-icon {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 0.8em;
+            font-size: 1.2em;
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .nav-item.active a {
+            color: #FFE800;
+        }
+
+        .nav-item.active::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 70px;
+            }
+
+            .nav-list {
+                gap: 1.5rem;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .nav-item {
+                font-size: 0.8rem;
+            }
+
+            .nav-icon {
+                margin-right: 0.5em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-list {
+                gap: 1rem;
+            }
+
+            .nav-item span:not(.nav-icon) {
+                display: none;
+            }
+
+            .nav-icon {
+                margin-right: 0;
+                font-size: 1.4em;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 120px;
+            padding-top: 40px;
+        }
+
+        .services-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3.5rem;
+            color: #FFE800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .services-subtitle {
+            font-size: 1.2rem;
+            color: #f3f3f3;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .services-content {
+            display: flex;
+            flex-direction: column;
+            gap: 160px;
+        }
+
+        .service-section {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+        }
+
+        .service-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-section:nth-child(3) {
+            margin-left: -100px;
+        }
+
+        .service-section:nth-child(4) {
+            margin-right: -100px;
+        }
+
+        .service-image-container {
+            flex: 0 0 45%;
+            position: relative;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+        }
+
+        .service-image:hover {
+            filter: grayscale(0%);
+        }
+
+        .service-content {
+            flex: 0 0 45%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-content:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            color: #FFE800;
+            margin-bottom: 20px;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #f3f3f3;
+        }
+
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 232, 0, 0.1);
+            filter: blur(60px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .service-section:nth-child(odd) .accent-shape {
+            right: -100px;
+            top: -50px;
+        }
+
+        .service-section:nth-child(even) .accent-shape {
+            left: -100px;
+            bottom: -50px;
+        }
+
+        @media (max-width: 1200px) {
+            .service-section {
+                flex-direction: column !important;
+                gap: 40px;
+                margin: 0 !important;
+            }
+
+            .service-image-container,
+            .service-content {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+
+            .service-image {
+                height: 300px;
+            }
+
+            .services-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 80px auto 40px;
+            }
+
+            .services-header {
+                margin-bottom: 80px;
+            }
+
+            .services-content {
+                gap: 80px;
+            }
+
+            .service-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .footer {
+            position: relative;
+            width: 100%;
+            padding: 18px 0;
+            background: rgba(10, 10, 10, 0.7);
+            color: #bbb;
+            text-align: center;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            z-index: 20;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 412px) {
+            .services-header {
+                padding: 2rem 1rem;
+                margin-top: 60px;
+            }
+
+            .services-title {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .services-subtitle {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .services-content {
+                padding: 1rem;
+                gap: 2rem;
+            }
+
+            .service-section {
+                flex-direction: column;
+                margin-bottom: 2rem;
+            }
+
+            .service-image-container {
+                width: 100%;
+                height: 200px;
+            }
+
+            .service-content {
+                width: 100%;
+                padding: 1rem 0;
+            }
+
+            .service-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .service-description {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .accent-shape {
+                width: 40%;
+                height: 40%;
+            }
+        }
+
+        /* Portrait mode refinements */
+        @media (max-width: 412px) and (min-height: 800px) {
+            .service-image-container {
+                height: 250px;
+            }
+
+            .services-content {
+                gap: 2.5rem;
+            }
+        }
+
+        /* Landscape mode refinements */
+        @media (max-height: 412px) {
+            .services-header {
+                margin-top: 3.5rem;
+            }
+
+            .services-title {
+                font-size: 1.8rem;
+            }
+
+            .service-section {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .service-image-container {
+                width: 40%;
+                height: 150px;
+            }
+
+            .service-content {
+                width: 60%;
+            }
+        }
+
+        /* Footer mobile adjustments */
+        @media (max-width: 412px) {
+            .footer {
+                padding: 0.8rem;
+                font-size: 0.75rem;
+                background: rgba(17, 17, 17, 0.9);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-gallery"></div>
+    <div class="animated-background">
+        <div class="animated-shape shape1"></div>
+        <div class="animated-shape shape2"></div>
+        <div class="animated-shape shape3"></div>
+        <div class="grid-overlay"></div>
+        <div class="curved-line"></div>
+    </div>
+
+    <div class="particle-container"></div>
+
+    <nav class="navbar glass-effect">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="index.html">
+                    <span class="nav-icon">🏠</span>
+                    <span class="gradient-text">Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html">
+                    <span class="nav-icon">👤</span>
+                    <span class="gradient-text">About</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="work.html">
+                    <span class="nav-icon">💼</span>
+                    <span class="gradient-text">Works</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="services.html">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="gradient-text">Services</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="mailto:adityaofficial2008@gmail.com">
+                    <span class="nav-icon">✉️</span>
+                    <span class="gradient-text">Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="services-header">
+            <h1 class="services-title">Our Services</h1>
+            <p class="services-subtitle">We offer comprehensive digital solutions to help your brand stand out in
+                today's competitive landscape.</p>
+        </div>
+
+        <div class="services-content">
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80"
+                        alt="Website Design" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Website Design & Development</h3>
+                    <p class="service-description">Custom-built, responsive websites that combine stunning design with
+                        seamless functionality. We create digital experiences that engage and convert, focusing on user
+                        experience and modern technologies to bring your vision to life.</p>
+                </div>
+            </div>
+
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1536329583941-14287ec6fc4e?auto=format&fit=crop&w=800&q=80"
+                        alt="Branding" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Branding & Identity</h3>
+                    <p class="service-description">Develop a strong, cohesive brand identity that resonates with your
+                        audience. From logos to brand guidelines, we help you stand out in a crowded market with unique,
+                        memorable branding that tells your story.</p>
+                </div>
+            </div>
+
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=800&q=80"
+                        alt="Social Media" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Social Media Management</h3>
+                    <p class="service-description">Strategic social media management to build your online presence.
+                        We create engaging content, manage community interactions, and develop strategies that grow
+                        your brand's digital footprint across all major platforms.</p>
+                </div>
+            </div>
+
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                        alt="Paid Ads" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Paid Ads & Strategy</h3>
+                    <p class="service-description">Data-driven paid advertising campaigns across multiple platforms.
+                        We create targeted strategies that maximize your ROI, reaching the right audience at the right
+                        time with compelling ad creative and precise targeting.</p>
+                </div>
+            </div>
+
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80"
+                        alt="Graphic Design" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Graphic Design</h3>
+                    <p class="service-description">Creative graphic design solutions for all your digital and print
+                        needs.
+                        From marketing materials to social media assets, we create visually stunning designs that
+                        capture attention and communicate your message effectively.</p>
+                </div>
+            </div>
+
+            <div class="service-section">
+                <div class="service-image-container">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80"
+                        alt="Video Content" class="service-image">
+                    <div class="accent-shape"></div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Video/Photo Content</h3>
+                    <p class="service-description">Professional video and photo content creation to tell your brand's
+                        story.
+                        We produce high-quality visual content that captures your audience's attention and brings your
+                        brand to life through compelling imagery and cinematography.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">VAYOSA copyright 2025</div>
+
+    <script src="js/background-gallery.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/mobile-nav.js"></script>
+</body>
+
+</html>
