@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" />
     <meta name="theme-color" content="#111111">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -18,9 +18,20 @@
     <link rel="stylesheet" href="styles/mobile-nav.css">
     <link rel="stylesheet" href="styles/background-gallery.css">
     <style>
-        /* Add responsive content sizing */
+        /* Base styles and responsive reset */
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Ensure all buttons and links are touch-friendly */
+        a, button, .nav-item, .mobile-nav-item {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .content-wrapper {
@@ -203,49 +214,48 @@
                 transform: translate(0, 0) scale(1);
             }
 
-            }
+        }
 
-            .nav-item {
-                font-size: 0.75rem;
-                padding: 6px 0;
-            }
+        .nav-item {
+            font-size: 0.75rem;
+            padding: 6px 0;
+        }
 
-            /* Adjust shapes for mobile */
-            .shape1 {
-                width: 300px;
-                height: 300px;
-            }
+        /* Adjust shapes for mobile */
+        .shape1 {
+            width: 300px;
+            height: 300px;
+        }
 
-            .shape2 {
-                width: 200px;
-                height: 200px;
-            }
+        .shape2 {
+            width: 200px;
+            height: 200px;
+        }
 
-            .shape3 {
-                width: 150px;
-                height: 150px;
-            }
+        .shape3 {
+            width: 150px;
+            height: 150px;
+        }
 
-            .grid-overlay {
-                background-size: 30px 30px;
-            }
+        .grid-overlay {
+            background-size: 30px 30px;
+        }
 
-            /* Improve content layout */
-            .content-section {
-                padding: 2rem 1rem;
-            }
+        /* Improve content layout */
+        .content-section {
+            padding: 2rem 1rem;
+        }
 
-            .section-title {
-                font-size: 2rem;
-                text-align: center;
-            }
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+        }
 
-            .section-text {
-                font-size: 1rem;
-                line-height: 1.6;
-                margin: 1rem 0;
-            }
-        
+        .section-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
 
         @media (max-width: 480px) {
             .nav-list {
@@ -1278,51 +1288,80 @@
             }
         }
 
-        /* Enhanced background effects */
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 3;
-            overflow: hidden;
-            background: var(--dark);
-            pointer-events: none;
-        }
+/* Enhanced background effects */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    overflow: hidden;
+    background: var(--dark);
+    pointer-events: none;
+}
 
-        .aurora-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            opacity: 0.1;
-            z-index: 1;
-        }
+/* Aurora beam styles */
+.aurora-beam {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: aurora 15s infinite ease-in-out;
+}
 
-        .aurora-beam {
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            animation: aurora 15s infinite ease-in-out;
-        }
+.aurora-beam:nth-child(1) {
+    top: -200px;
+    left: -100px;
+    background: var(--primary);
+    animation-delay: 0s;
+}
 
-        .aurora-beam:nth-child(1) {
-            top: -200px;
-            left: -100px;
-            background: var(--primary);
-            animation-delay: 0s;
-        }
+.aurora-beam:nth-child(2) {
+    bottom: -300px;
+    right: -200px;
+    background: var(--secondary);
+    animation-delay: -5s;
+}
 
-        .aurora-beam:nth-child(2) {
-            bottom: -300px;
-            right: -200px;
-            background: var(--secondary);
-            animation-delay: -5s;
-        }
+.aurora-beam:nth-child(3) {
+    top: 50%;
+    left: 50%;
+    background: var(--accent);
+    animation-delay: -10s;
+}
+
+/* Ensure body doesn't scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+/* Hide desktop nav on mobile */
+@media (max-width: 991px) {
+    .navbar {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+/* Show desktop nav on larger screens */
+@media (min-width: 992px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .mobile-nav-overlay {
+        display: none !important;
+    }
+}
 
         .aurora-beam:nth-child(3) {
             top: 50%;
@@ -2048,8 +2087,50 @@
     </div>
 
     <div class="scroll-progress-bar"></div>
-
     <div class="particle-container"></div>
+    
+    <!-- Mobile Navigation Toggle -->
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <nav class="mobile-nav-menu" role="navigation" aria-label="Mobile navigation">
+            <div class="mobile-nav-item">
+                <a href="index.html" class="nav-link" data-page="home">
+                    <span class="nav-icon" aria-hidden="true">🏠</span>
+                    <span class="nav-text">Home</span>
+                </a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="about.html" class="nav-link" data-page="about">
+                    <span class="nav-icon" aria-hidden="true">👤</span>
+                    <span class="nav-text">About</span>
+                </a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="work.html" class="nav-link" data-page="work">
+                    <span class="nav-icon" aria-hidden="true">💼</span>
+                    <span class="nav-text">Works</span>
+                </a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="services.html" class="nav-link" data-page="services">
+                    <span class="nav-icon" aria-hidden="true">⚙️</span>
+                    <span class="nav-text">Services</span>
+                </a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="mailto:adityaofficial2008@gmail.com" class="nav-link contact-link" data-page="contact">
+                    <span class="nav-icon" aria-hidden="true">✉️</span>
+                    <span class="nav-text">Contact</span>
+                </a>
+            </div>
+        </nav>
+    </div>
 
     <nav class="navbar glass-effect">
         <ul class="nav-list">
@@ -2198,46 +2279,7 @@
 
 
 
-    <div class="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
 
-    <div class="mobile-nav-overlay">
-        <nav class="mobile-nav-menu">
-            <div class="mobile-nav-item">
-                <a href="index.html">
-                    <span class="nav-icon">🏠Home</span>
-                    <span>Home</span>
-                </a>
-            </div>
-            <div class="mobile-nav-item">
-                <a href="about.html">
-                    <span class="nav-icon">👤About</span>
-                    <span>About</span>
-                </a>
-            </div>
-            <div class="mobile-nav-item">
-                <a href="work.html">
-                    <span class="nav-icon">💼Works</span>
-                    <span>Works</span>
-                </a>
-            </div>
-            <div class="mobile-nav-item">
-                <a href="services.html">
-                    <span class="nav-icon">⚙️Services</span>
-                    <span>Services</span>
-                </a>
-            </div>
-            <div class="mobile-nav-item">
-                <a href="mailto:adityaofficial2008@gmail.com">
-                    <span class="nav-icon">✉️Contact</span>
-                    <span>Contact</span>
-                </a>
-            </div>
-        </nav>
-    </div>
 
 
 
@@ -2302,43 +2344,22 @@
 
     <script src="js/background-gallery.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/mobile-nav.js"></script>
+    <script src="js/mobile-nav.js" defer></script>
     <script>
-        // Mobile menu functionality
+        // Initialize animations and other global functionality
         document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navList = document.querySelector('.nav-list');
-
-            menuToggle.addEventListener('click', () => {
-                navList.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
-            });
-
-            // Close menu when clicking a link
-            document.querySelectorAll('.nav-item a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navList.classList.remove('active');
-                    document.body.classList.remove('menu-open');
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.nav-list') &&
-                    !e.target.closest('.menu-toggle') &&
-                    navList.classList.contains('active')) {
-                    navList.classList.remove('active');
-                    document.body.classList.remove('menu-open');
-                }
-            });
-
+            // Initialize animations
             document.querySelectorAll('.fade-in').forEach(element => {
                 element.classList.add('visible');
             });
 
-            // Initialize other animations
-            initializeAnimations();
-            initializeParallax();
+            // Initialize other animations if they exist
+            if (typeof initializeAnimations === 'function') {
+                initializeAnimations();
+            }
+            if (typeof initializeParallax === 'function') {
+                initializeParallax();
+            }
         });
 
         // Scroll Progress Bar
