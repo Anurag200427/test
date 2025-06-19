@@ -686,10 +686,121 @@
         }
 
         /* Services section adjustment */
-        .services-section {
-            margin-top: -4rem;
-            padding: 60px 0;
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             position: relative;
+            z-index: 2;
+        }
+
+        .services-section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .service-features li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .service-features li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .process-section {
+            padding: 6rem 0;
+            background: var(--darker);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .process-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .process-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .process-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -2179,45 +2290,43 @@ body.menu-open {
                     VISION&nbsp;&nbsp;MEETS&nbsp;&nbsp;RESULTS</div>
             </div>
         </div>
-<div>
-        <section class="services-section reveal-on-scroll">
-            <h2 class="section-title gradient-text">Our Expertise</h2>
-            <div class="services-grid stagger-children">
-                <div class="service-card card-3d">
-                    <div class="service-icon float-animation">🌐</div>
-                    <h3 class="service-title gradient-text">Web Development</h3>
-                    <p class="service-description">Custom websites and web applications built with cutting-edge
-                        technologies.</p>
-                    <ul class="service-features">
-                        <li>Responsive Design</li>
-                        <li>Performance Optimization</li>
-                        <li>SEO Integration</li>
-                    </ul>
+        
+        <div class="content-wrapper">
+            <section class="services-section reveal-on-scroll">
+                <h2 class="section-title gradient-text">Our Expertise</h2>
+                <div class="services-grid">
+                    <div class="service-card card-3d">
+                        <div class="service-icon float-animation">🌐</div>
+                        <h3 class="service-title gradient-text">Web Development</h3>
+                        <p class="service-description">Custom websites and web applications built with cutting-edge technologies.</p>
+                        <ul class="service-features">
+                            <li>Responsive Design</li>
+                            <li>Performance Optimization</li>
+                            <li>SEO Integration</li>
+                        </ul>
+                    </div>
+                    <div class="service-card card-3d">
+                        <div class="service-icon float-animation">🎨</div>
+                        <h3 class="service-title gradient-text">Graphics Design</h3>
+                        <p class="service-description">Creative and innovative design solutions that bring your brand to life.</p>
+                        <ul class="service-features">
+                            <li>Brand Identity Design</li>
+                            <li>UI/UX Design</li>
+                            <li>Print & Digital Media</li>
+                        </ul>
+                    </div>
+                    <div class="service-card card-3d">
+                        <div class="service-icon float-animation">🎯</div>
+                        <h3 class="service-title gradient-text">Digital Marketing</h3>
+                        <p class="service-description">Strategic digital marketing solutions to grow your online presence.</p>
+                        <ul class="service-features">
+                            <li>Social Media Management</li>
+                            <li>Content Strategy</li>
+                            <li>Analytics & Reporting</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="service-icon float-animation">🎨</div>
-                    <h3 class="service-title gradient-text">Graphics Design</h3>
-                    <p class="service-description">Creative and innovative design solutions that bring your brand to
-                        life.</p>
-                    <ul class="service-features">
-                        <li>Brand Identity Design</li>
-                        <li>UI/UX Design</li>
-                        <li>Print & Digital Media</li>
-                    </ul>
-                </div>
-                <div class="service-card card-3d">
-                    <div class="service-icon float-animation">🎯</div>
-                    <h3 class="service-title gradient-text">Digital Marketing</h3>
-                    <p class="service-description">Strategic digital marketing solutions to grow your online presence.
-                    </p>
-                    <ul class="service-features">
-                        <li>Social Media Management</li>
-                        <li>Content Strategy</li>
-                        <li>Analytics & Reporting</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
         </div>
 
         <section class="stats-section parallax-scroll" data-speed="0.1">
@@ -2235,8 +2344,6 @@ body.menu-open {
                 </div>
             </div>
         </section>
-
-    </div>
     </div>
 
     <section class="process-section reveal-on-scroll">
